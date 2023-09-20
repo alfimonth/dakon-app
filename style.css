@@ -1,0 +1,120 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	height: 60px;
+}
+
+.game-arena {
+	margin: auto;
+	display: flex;
+	flex-direction: column-reverse;
+	align-items: center;
+	padding: 50px;
+	border: 4px solid black;
+	width: min-content;
+	background-color: red;
+	border-radius: 200px;
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.338);
+}
+
+.zone {
+	display: flex;
+}
+
+.zone-b {
+	flex-direction: row-reverse;
+}
+
+.box-game {
+	display: block;
+	width: 100px;
+	height: 100px;
+	margin: 5px 5px 5px 0;
+}
+
+.box-used {
+	background-color: #fff;
+	box-sizing: border-box;
+	border: 2px solid black;
+	border-radius: 50%;
+	box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.327);
+
+	/* stone */
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	gap: 1px;
+}
+
+.game-stone {
+	display: block;
+	box-sizing: border-box;
+	background-color: rgba(90, 90, 90);
+	width: 18px;
+	height: 18px;
+	border-radius: 50px;
+	box-shadow: 1px 1px 5px rgba(28, 28, 28, 0.545);
+}
+
+.stone-place {
+	box-sizing: border-box;
+	width: fit-content;
+	height: 30px;
+	background-color: #fff;
+	margin: 20px auto;
+	border-radius: 15px;
+	display: flex;
+	gap: 1px;
+	flex-wrap: wrap;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+}
+
+.inv-a {
+	transform: translateY(-50px);
+}
+.inv-b {
+	transform: translateY(50px);
+}
+
+@keyframes spin {
+	0% {
+		border: 1px solid black;
+	}
+	50% {
+		border: 3px solid green;
+	}
+	100% {
+		border: 5px solid blue;
+	}
+}
+@keyframes stop {
+	0% {
+		background-color: #fff;
+	}
+	100% {
+		background-color: yellow;
+	}
+}
+
+.box-game.stop {
+	animation: stop 0.5s; /* Animasi selama 2 detik */
+}
+
+.start-button {
+	box-sizing: border-box;
+	color: #fff;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	margin: 50px auto;
+	width: 100px;
+	height: 50px;
+	line-height: 50px;
+	background-color: red;
+}
