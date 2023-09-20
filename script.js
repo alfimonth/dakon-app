@@ -10,6 +10,7 @@ const usedBoxesAWithoutInv = document.querySelectorAll(".zone-a > .box-used:not(
 const usedBoxesBWithoutInv = document.querySelectorAll(".zone-b > .box-used:not(.inv)");
 const stonePlaceA = document.querySelector(".place-a");
 const stonePlaceB = document.querySelector(".place-b");
+const infoBox = document.querySelector(".info-box");
 
 boxUsed.forEach((box) => {
   if (!box.classList.contains("inv")) {
@@ -26,10 +27,13 @@ function pilihTurn() {
 
   if (randomValue < 0.5) {
     alert("kamu jalan duluan");
+
+    infoBox.innerHTML = 'Giliran kamu berjalan, klik bagian berwarna kuning';
     turnA();
   } else {
     alert("bot jalan duluan");
-    setTimeout(turnB, 2000);
+
+    setTimeout(turnB, 2000) 
   }
 }
 
@@ -56,9 +60,9 @@ function endGame() {
 function turnA() {
   if (!endGame()) {
     let notEmptyBox = [];
-    usedBoxesAWithoutInv.forEach((box, index) => {
+    usedBoxesAWithoutInv.forEach((box) => {
       if (box.children.length > 0) {
-        notEmptyBox.push(index);
+        notEmptyBox.push(box);
       }
     });
     if (notEmptyBox.length === 0) {
@@ -66,9 +70,16 @@ function turnA() {
       gameRun = false;
       turnB();
     } else {
-      usedBoxesAWithoutInv.forEach((box, index) => {
+      notEmptyBox.forEach((box) => {
+        box.classList.add('green');
+      })
+      console.log(notEmptyBox);
+      notEmptyBox.forEach((box, index) => {
         box.addEventListener("click", function () {
-          if (!gameRun && gameTurn === "A") {
+          if (!gameRun && gameTurn === "A" && box.children.length > 0) {
+            notEmptyBox.forEach((box) => {
+              box.classList.remove('green');
+            })
             gameTurn = "pending";
             gameRun = true;
             let countStone = box.children.length;
@@ -112,6 +123,7 @@ function turnA() {
                 } else {
                   //batu berheni
                   if (currentIndex === 6) {
+                    infoBox.innerHTML = 'Kamu berhenti di lumbung, kamu boleh berjalan lagi';
                     invA.classList.add("stop");
                     setTimeout(function () {
                       invA.classList.remove("stop");
@@ -138,6 +150,7 @@ function turnA() {
                     } else {
                       console.log("berhenti di area lawan");
                     }
+                    infoBox.innerHTML = 'Giliran Bot';
                     gameTurn = "B";
                     setTimeout(turnB, 600);
                   }
@@ -145,7 +158,7 @@ function turnA() {
                 }
               }
             }
-
+            infoBox.innerHTML = 'kamu sedang berjalan';
             addGameStone();
           }
         });
@@ -157,8 +170,8 @@ function turnA() {
 }
 
 function turnB() {
+  infoBox.innerHTML = 'Bot sedang berjalan';
   if (!endGame()) {
-    alert("Turn B");
     gameTurn = "pending";
     gameRun = true;
     let notEmptyBox = [];
@@ -168,7 +181,7 @@ function turnB() {
       }
     });
     if (notEmptyBox.length === 0) {
-      alert("Bot diskip karena semua kotaknya kosong");
+      infoBox.innerHTML = 'Bot diskip karena semua lubangnya kosong';
       gameTurn = "A";
       gameRun = false;
       turnA();
@@ -215,8 +228,8 @@ function turnB() {
           } else {
             //batu berheni
             if (currentIndex === 11) {
-              gameTurn = "B";
-              turnB();
+              infoBox.innerHTML = 'Bot berhenti dilumbung, Bot bpleh berjalan lagi';
+              setTimeout(turnB, 2000)
             } else {
               if (currentIndex - 1 < 11 && currentIndex - 1 > 4) {
                 let attackedZone = boxUsedB[10 - currentIndex];
@@ -235,10 +248,11 @@ function turnB() {
                   }
                 }
               } else {
-                console.log("berhenti di area lawan");
+                console.log("Giliran bot selesai");
               }
               gameTurn = "A";
-              setTimeout(turnA, 600);
+              infoBox.innerHTML = 'Giliran Kamu';
+              turnA()
             }
             gameRun = false;
           }
