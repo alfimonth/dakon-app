@@ -30,12 +30,13 @@ function pilihTurn() {
   if (randomValue < 0.5) {
     alert("kamu jalan duluan");
 
-    infoBox.innerHTML = 'Giliran kamu berjalan, klik bagian berwarna kuning';
-    turnA();
+    // infoBox.innerHTML = 'Giliran kamu berjalan, klik bagian berwarna kuning';
+    // turnA();
+    setTimeout(turnA, 50)
   } else {
     alert("bot jalan duluan");
 
-    setTimeout(turnB, 2000)
+    setTimeout(turnB, 100)
   }
 }
 
@@ -76,10 +77,10 @@ function turnA() {
         box.classList.add('green');
       })
       console.log(notEmptyBox);
-      notEmptyBox.forEach((box, index) => {
+      usedBoxesAWithoutInv.forEach((box, index) => {
         box.addEventListener("click", function () {
           if (!gameRun && gameTurn === "A" && box.children.length > 0) {
-            notEmptyBox.forEach((box) => {
+            usedBoxesAWithoutInv.forEach((box) => {
               box.classList.remove('green');
             })
             gameTurn = "pending";
