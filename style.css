@@ -94,6 +94,11 @@ header {
 		border: 5px solid blue;
 	}
 }
+
+
+
+
+
 @keyframes stop {
 	0% {
 		background-color: #fff;
@@ -108,11 +113,14 @@ header {
 }
 
 .start-button {
+	border: 2px solid black;
+	box-shadow: 5px 5px 5px solid;
+	border-radius: 20px;
 	box-sizing: border-box;
 	color: #fff;
 	font-family: Arial, Helvetica, sans-serif;
 	text-align: center;
-	margin: 50px auto;
+	margin: 0 auto;
 	width: 100px;
 	height: 50px;
 	line-height: 50px;

@@ -11,6 +11,7 @@ const usedBoxesBWithoutInv = document.querySelectorAll(".zone-b > .box-used:not(
 const stonePlaceA = document.querySelector(".place-a");
 const stonePlaceB = document.querySelector(".place-b");
 const infoBox = document.querySelector(".info-box");
+const startButton = document.querySelector(".start-button")
 
 boxUsed.forEach((box) => {
   if (!box.classList.contains("inv")) {
@@ -23,6 +24,7 @@ boxUsed.forEach((box) => {
 });
 
 function pilihTurn() {
+  startButton.style.display = 'none';
   const randomValue = Math.random();
 
   if (randomValue < 0.5) {
@@ -33,7 +35,7 @@ function pilihTurn() {
   } else {
     alert("bot jalan duluan");
 
-    setTimeout(turnB, 2000) 
+    setTimeout(turnB, 2000)
   }
 }
 
@@ -228,7 +230,7 @@ function turnB() {
           } else {
             //batu berheni
             if (currentIndex === 11) {
-              infoBox.innerHTML = 'Bot berhenti dilumbung, Bot bpleh berjalan lagi';
+              infoBox.innerHTML = 'Bot berhenti dilumbung, Bot boleh berjalan lagi';
               setTimeout(turnB, 2000)
             } else {
               if (currentIndex - 1 < 11 && currentIndex - 1 > 4) {
