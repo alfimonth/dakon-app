@@ -96,7 +96,14 @@ header {
 }
 
 
-
+.green {
+	background-color: goldenrod;
+}
+.info-box {
+	font-size: 24px;
+	margin: auto;
+	width: fit-content;
+}
 
 
 @keyframes stop {

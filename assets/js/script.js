@@ -1,6 +1,14 @@
 let gameTurn = "A";
 let gameRun = false;
 let stoneUsed = 0;
+
+// sfx
+const dor = document.querySelector('#dor')
+const putStone = document.querySelector('#put-stone')
+const lumbung = document.querySelector('#lumbung')
+const winMusic = document.querySelector('#win-music')
+const loseMusic = document.querySelector('#lose-music')
+
 const boxUsed = document.querySelectorAll(".box-used");
 const boxUsedA = document.querySelectorAll(".box-used:not(.inv-b)");
 const boxUsedB = document.querySelectorAll(".box-used:not(.inv-a)");
@@ -46,11 +54,14 @@ function endGame() {
 
   if (countInvA > 25 || countInvB > 25 || countInvA + countInvB === 50) {
     if (countInvA > countInvB) {
+      winMusic.play();
       alert("Game Berakhir, kamu menang");
     } else {
       if (countInvA === countInvB) {
+        winMusic.play();
         alert("Game Berakhir, hasilnya seri");
       } else {
+        loseMusic.play();
         alert("Game Berakhir, kamu kalah");
       }
     }
@@ -101,7 +112,7 @@ function turnA() {
                 if (currentIndex >= boxUsedA.length) {
                   currentIndex = 0; // Loop back to the first box
                 }
-
+                putStone.play()
                 const currentBox = boxUsedA[currentIndex];
                 const gameStone = document.createElement("div");
                 gameStone.setAttribute("class", "game-stone");
@@ -111,7 +122,7 @@ function turnA() {
                 stonePlaceA.removeChild(stonePlaceA.firstChild);
                 currentIndex++;
 
-                setTimeout(addGameStone, 500); // Menunggu 1 detik sebelum memanggil kembali fungsi
+                setTimeout(addGameStone, 500);
               } else {
                 let lastBox = boxUsedA[currentIndex - 1];
                 if (lastBox.children.length > 1 && !lastBox.classList.contains("inv")) {
@@ -127,6 +138,7 @@ function turnA() {
                   //batu berheni
                   if (currentIndex === 6) {
                     infoBox.innerHTML = 'Kamu berhenti di lumbung, kamu boleh berjalan lagi';
+                    lumbung.play();
                     invA.classList.add("stop");
                     setTimeout(function () {
                       invA.classList.remove("stop");
@@ -144,6 +156,7 @@ function turnA() {
                         while (attackedZone.firstChild) {
                           attackedZone.removeChild(attackedZone.firstChild);
                         }
+                        dor.play()
                         for (let i = 0; i < stoneGet; i++) {
                           const gameStone = document.createElement("div");
                           gameStone.setAttribute("class", "game-stone");
@@ -155,7 +168,7 @@ function turnA() {
                     }
                     infoBox.innerHTML = 'Giliran Bot';
                     gameTurn = "B";
-                    setTimeout(turnB, 600);
+                    setTimeout(turnB, 1000);
                   }
                   gameRun = false;
                 }
@@ -206,7 +219,7 @@ function turnB() {
           if (currentIndex >= boxUsedB.length) {
             currentIndex = 0; // Loop back to the first box
           }
-
+          putStone.play()
           const currentBox = boxUsedB[currentIndex];
           const gameStone = document.createElement("div");
           gameStone.setAttribute("class", "game-stone");
@@ -232,6 +245,7 @@ function turnB() {
             //batu berheni
             if (currentIndex === 11) {
               infoBox.innerHTML = 'Bot berhenti dilumbung, Bot boleh berjalan lagi';
+              lumbung.play()
               setTimeout(turnB, 2000)
             } else {
               if (currentIndex - 1 < 11 && currentIndex - 1 > 4) {
@@ -244,6 +258,7 @@ function turnB() {
                   while (attackedZone.firstChild) {
                     attackedZone.removeChild(attackedZone.firstChild);
                   }
+                  dor.play()
                   for (let i = 0; i < stoneGet; i++) {
                     const gameStone = document.createElement("div");
                     gameStone.setAttribute("class", "game-stone");
